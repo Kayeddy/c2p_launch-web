@@ -20,7 +20,7 @@ const CompanyLogos = ({ className }) => {
             height={28}
             alt="google_developer_student_club_logo"
           />
-          <h2>Google Developer Student Club</h2>
+          <h2>Google Cloud</h2>
         </li>
       </ul>
     </div>

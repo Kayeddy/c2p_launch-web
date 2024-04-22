@@ -101,31 +101,31 @@ const WaitList = () => {
         <div className="flex flex-col gap-24 xl:flex-row">
           <div className="flex flex-col items-center justify-center w-full gap-8">
             <h1 className="max-w-3xl mx-auto mb-6 body-1 text-n-2 lg:mb-8">
-              Tiempo hasta el lanzamiento
+              Tendrás acceso a Connect2Pet en:
             </h1>
             <div className="wrapper">
               <div className="w-full xl:hidden">
                 <main className="items-center justify-center w-full containerDiv">
-                  <Digits number={countdown.days} label="Days" />
+                  <Digits number={countdown.days} label="Días" />
                 </main>
                 <main className="items-center justify-center w-full my-10 containerDiv">
-                  <Digits number={countdown.hours} label="Hours" />
+                  <Digits number={countdown.hours} label="Horas" />
                   <Colon />
-                  <Digits number={countdown.minutes} label="Minutes" />
+                  <Digits number={countdown.minutes} label="Minutos" />
                   <Colon />
-                  <Digits number={countdown.seconds} label="Seconds" />
+                  <Digits number={countdown.seconds} label="Segundos" />
                 </main>
               </div>
 
               <div className="hidden w-full xl:flex">
                 <main className="w-full containerDiv">
-                  <Digits number={countdown.days} label="Days" />
+                  <Digits number={countdown.days} label="Días" />
                   <Colon />
-                  <Digits number={countdown.hours} label="Hours" />
+                  <Digits number={countdown.hours} label="Horas" />
                   <Colon />
-                  <Digits number={countdown.minutes} label="Minutes" />
+                  <Digits number={countdown.minutes} label="Minutos" />
                   <Colon />
-                  <Digits number={countdown.seconds} label="Seconds" />
+                  <Digits number={countdown.seconds} label="Segundos" />
                 </main>
               </div>
             </div>
@@ -133,7 +133,7 @@ const WaitList = () => {
 
           <div className="flex flex-col items-center justify-start w-full gap-8">
             <h1 className="max-w-3xl mx-auto mb-6 text-center body-1 text-n-2 lg:mb-8">
-              ¿Quieres ser parte de este movimiento? Déjanos tus datos abajo
+              ¿Quieres ser uno de los primeros usuarios beta en Connect2Pet? Déjanos tus datos abajo y únete a la lista de espera
             </h1>
             <div className="flex flex-col items-center justify-center w-full gap-6">
               <input
