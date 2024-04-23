@@ -6,9 +6,11 @@ export default function Dropdown({ label, options, value, onChange }) {
       <label className="flex flex-col items-center justify-center w-full gap-4">
         {label}
         <select
+          name="profileType"
           value={value}
+          required
           onChange={onChange}
-          className="w-full max-w-xs p-3 rounded-lg bg-primary"
+          className="w-full max-w-xs p-3 rounded-lg bg-slate-600"
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>

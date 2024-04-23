@@ -76,6 +76,8 @@ const sendFormData = (formData) => {
 };
 
 const WaitList = () => {
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState({
     days: 0,
     hours: 0,
@@ -86,22 +88,66 @@ const WaitList = () => {
   const [formData, setFormData] = useState({
     email: "",
     name: "",
+    profileType: "adopter",
+  });
+
+  const [errors, setErrors] = useState({
+    email: "",
+    name: "",
     profileType: "",
   });
 
+  const validateForm = () => {
+    let errors = {};
+    let formIsValid = true;
+
+    // Email validation
+    if (!formData.email) {
+      formIsValid = false;
+      errors["email"] = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      formIsValid = false;
+      errors["email"] = "Email is invalid.";
+    }
+
+    // Name validation
+    if (!formData.name) {
+      formIsValid = false;
+      errors["name"] = "Name is required.";
+    }
+
+    // Profile Type validation
+    if (!formData.profileType) {
+      formIsValid = false;
+      errors["profileType"] = "Profile type is required.";
+    }
+
+    setErrors(errors);
+    return formIsValid;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formDataObj = new FormData();
-    formDataObj.append("Email", formData.email);
-    formDataObj.append("Name", formData.name);
-    formDataObj.append("Profiletype", formData.profileType);
-    sendFormData(formDataObj);
+    setLoading(true);
+    if (validateForm()) {
+      const formDataObj = new FormData();
+      formDataObj.append("Email", formData.email);
+      formDataObj.append("Name", formData.name);
+      formDataObj.append("Profiletype", formData.profileType);
+      sendFormData(formDataObj);
 
-    setFormData({ email: "", name: "", profileType: "" });
+      setFormData({ email: "", name: "", profileType: "" });
+      setLoading(false);
+      setSubmitted(true);
+    }
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   useEffect(() => {
@@ -129,15 +175,16 @@ const WaitList = () => {
       document.body.classList.add("safari");
     }
   }, []);
-
-  const handleDropdownChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(`Selected value: ${selectedOption}`);
-  };
+  useEffect(() => {
+    console.log("Initial profile type:", formData.profileType);
+    // Optionally set an initial state if not set
+    if (!formData.profileType) {
+      setFormData((prevState) => ({
+        ...prevState,
+        profileType: "adopter",
+      }));
+    }
+  }, []);
 
   const options = [
     { value: "adopter", label: "Quiero adoptar 🤲" },
@@ -186,45 +233,66 @@ const WaitList = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-start w-full gap-8">
-            <h1 className="max-w-3xl mx-auto mb-6 text-center body-1 text-n-2 lg:mb-8">
-              ¿Quieres ser uno de los primeros usuarios beta en Connect2Pet?
-              Déjanos tus datos abajo y únete a la lista de espera
-            </h1>
-            <div className="flex flex-col items-center justify-center w-full gap-6">
-              <input
-                type="text"
-                placeholder="Email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full max-w-xs input input-bordered input-primary"
-                style={{ color: "black" }}
-              />
-              <input
-                type="text"
-                placeholder="Nombre"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full max-w-xs input input-bordered input-info"
-                style={{ color: "black" }}
-              />
-              <CustomDropdown
-                label="Qué te gustaria hacer en Connect2Pet?"
-                options={options}
-                value={selectedOption}
-                name="profileType"
-                value={formData.profileType}
-                onChange={handleChange}
-                onChange={handleDropdownChange}
-                style={{ color: "black" }}
-              />
-              <button className="btn btn-primary" onClick={handleSubmit}>
-                Enviar
-              </button>
+          {!submitted ? (
+            <div className="flex flex-col items-center justify-start w-full gap-8">
+              <h1 className="max-w-3xl mx-auto mb-6 text-center body-1 text-n-2 lg:mb-8">
+                ¿Quieres ser uno de los primeros usuarios beta en Connect2Pet?
+                Déjanos tus datos abajo y únete a la lista de espera
+              </h1>
+              <form className="flex flex-col items-center justify-center w-full gap-6">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  required
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full max-w-xs text-white input input-bordered input-primary"
+                />
+                {errors.email && (
+                  <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+                )}
+                <input
+                  type="text"
+                  placeholder="Nombre"
+                  required
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full max-w-xs text-white input input-bordered input-info"
+                />
+                {errors.name && (
+                  <p className="mt-1 text-xs text-red-500">{errors.name}</p>
+                )}
+                <CustomDropdown
+                  label="Qué te gustaria hacer en Connect2Pet?"
+                  options={options}
+                  name="profileType"
+                  onChange={handleChange}
+                  value={formData.profileType}
+                />
+                {errors.profileType && (
+                  <p className="mt-1 text-xs text-red-500">
+                    {errors.profileType}
+                  </p>
+                )}
+                <button
+                  className="text-white btn btn-primary"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                >
+                  {`${loading ? "Cargando..." : "Enviar"}`}
+                </button>
+              </form>
             </div>
-          </div>
+          ) : (
+            <div className="flex items-center justify-center w-full">
+              <h1 className="max-w-3xl mx-auto mb-6 text-center body-1 text-n-2 lg:mb-8">
+                Tus datos se han guardado exitosamente. Gracias por querer ser
+                parte de este gran movimiento creciente!
+              </h1>
+            </div>
+          )}
         </div>
       </div>
     </Section>
