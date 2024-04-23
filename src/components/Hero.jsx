@@ -39,7 +39,7 @@ const Hero = () => {
             {/* Seamlessly Explore, Match, and Connect with Your Ideal Pet
             Companion. Join a Thriving Community Dedicated to Celebrating Every
             Pet’s Unique Story and Fostering Lifelong Bonds. */}
-            Reinventamos la experiencia de adoptar, poner en adopción y descubrir animales, todo en un proceso divertido y accesible ¡y completamente GRATIS!
+            Reinventamos la experiencia de adoptar, poner en adopción y descubrir animales, todo en un proceso divertido y accesible ¡y GRATIS!
           </p>
           <Button href="#waitlist">Únete a la lista de espera</Button>
           {/* <Button
