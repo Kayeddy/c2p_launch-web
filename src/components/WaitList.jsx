@@ -56,6 +56,24 @@ const getTargetDate = () => {
   return new Date(year, 4, 26); // Month is 0-indexed, 4 = May
 };
 
+const sendFormData = (formData) => {
+  fetch(
+    "https://script.google.com/macros/s/AKfycbz-AfbPqHqc6-dR2YGd6zdzlLBwSVYEdRihDMpM647T58LesT87N8GWhC35arbnEW2mgQ/exec",
+    {
+      method: "POST",
+      body: formData,
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setFormData({ email: "", name: "", profileType: "" });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 const WaitList = () => {
   const [countdown, setCountdown] = useState({
     days: 0,
@@ -63,6 +81,27 @@ const WaitList = () => {
     minutes: 0,
     seconds: 0,
   });
+
+  const [formData, setFormData] = useState({
+    email: "",
+    name: "",
+    profileType: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formDataObj = new FormData();
+    formDataObj.append("Email", formData.email);
+    formDataObj.append("Name", formData.name);
+    formDataObj.append("Profiletype", formData.profileType);
+    sendFormData(formDataObj);
+
+    setFormData({ email: "", name: "", profileType: "" });
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     const targetDate = getTargetDate();
@@ -139,19 +178,33 @@ const WaitList = () => {
               <input
                 type="text"
                 placeholder="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full max-w-xs input input-bordered input-primary"
+                style={{ color: 'black' }}
               />
               <input
                 type="text"
                 placeholder="Nombre"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 className="w-full max-w-xs input input-bordered input-info"
+                style={{ color: 'black' }}
               />
               <input
                 type="text"
                 placeholder="Perfil preferido"
+                name="profileType"
+                value={formData.profileType}
+                onChange={handleChange}
                 className="w-full max-w-xs input input-bordered input-secondary"
+                style={{ color: 'black' }}
               />
-              <button className="btn btn-primary">Enviar</button>
+              <button className="btn btn-primary" onClick={handleSubmit}>
+                Enviar
+              </button>
             </div>
           </div>
         </div>
