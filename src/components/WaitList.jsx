@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Heading from "./Heading";
 import Section from "./Section";
+import CustomDropdown from "./CustomDropdown";
 
 const Digits = ({ number, label }) => {
   const bars = [
@@ -63,6 +64,7 @@ const WaitList = () => {
     minutes: 0,
     seconds: 0,
   });
+  const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
     const targetDate = getTargetDate();
@@ -90,11 +92,26 @@ const WaitList = () => {
     }
   }, []);
 
+  const handleDropdownChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Selected value: ${selectedOption}`);
+  };
+
+  const options = [
+    { value: "adopter", label: "Quiero adoptar 🤲" },
+    { value: "holder", label: "Quiero poner en adopción 😎" },
+    { value: "explorer", label: "Solo quiero ver animales lindos 🥹" },
+  ];
+
   return (
-    <Section id="features" className="w-full">
-      <div className="container relative w-full pb-32 z-2">
+    <Section id="waitlist" className="w-full">
+      <div className="container relative w-full pb-32 pt-[12rem] -mt-[5.25rem] z-2">
         <Heading
-          className="md:max-w-md lg:max-w-2xl"
+          className="text-center md:max-w-md lg:max-w-2xl"
           title="Conecta vidas alrededor del mundo y sálvalas!"
         />
 
@@ -133,7 +150,8 @@ const WaitList = () => {
 
           <div className="flex flex-col items-center justify-start w-full gap-8">
             <h1 className="max-w-3xl mx-auto mb-6 text-center body-1 text-n-2 lg:mb-8">
-              ¿Quieres ser uno de los primeros usuarios beta en Connect2Pet? Déjanos tus datos abajo y únete a la lista de espera
+              ¿Quieres ser uno de los primeros usuarios beta en Connect2Pet?
+              Déjanos tus datos abajo y únete a la lista de espera
             </h1>
             <div className="flex flex-col items-center justify-center w-full gap-6">
               <input
@@ -146,10 +164,11 @@ const WaitList = () => {
                 placeholder="Nombre"
                 className="w-full max-w-xs input input-bordered input-info"
               />
-              <input
-                type="text"
-                placeholder="Perfil preferido"
-                className="w-full max-w-xs input input-bordered input-secondary"
+              <CustomDropdown
+                label="Qué te gustaria hacer en Connect2Pet?"
+                options={options}
+                value={selectedOption}
+                onChange={handleDropdownChange}
               />
               <button className="btn btn-primary">Enviar</button>
             </div>

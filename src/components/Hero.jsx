@@ -23,7 +23,7 @@ const Hero = () => {
         <div className="relative z-1 max-w-[62rem] mx-auto text-center mb-[3.875rem] md:mb-20 lg:mb-[6.25rem]">
           <h1 className="mb-6 h1">
             {/* Unleash Compassion, Connect Hearts: Find Your Furry Soul Mate with{" "} */}
-            Haz match con tu alma gemela peluda en{" "}
+            Encuentra tu alma gemela peluda con{" "}
             <span className="relative inline-block">
               Connect2Pet
               <img
@@ -39,11 +39,18 @@ const Hero = () => {
             {/* Seamlessly Explore, Match, and Connect with Your Ideal Pet
             Companion. Join a Thriving Community Dedicated to Celebrating Every
             Pet’s Unique Story and Fostering Lifelong Bonds. */}
-            Reinventamos la experiencia de adoptar, poner en adopción y descubrir animalitos, todo desde este lugar en un proceso divertido, accesible ¡y GRATIS!
+            Explora, haz match y conéctate con tu mascota ideal, tu futuro
+            Compañero.
           </p>
-          <Button href="/pricing" white>
+          <Button href="#waitlist">Únete a la lista de espera</Button>
+          {/* <Button
+            href="#pricing"
+            onClick={() => {
+              window.location.hash = "pricing";
+            }}
+          >
             Únete a la lista de espera
-          </Button>
+          </Button> */}
         </div>
         <div className="relative max-w-[23rem] mx-auto md:max-w-5xl xl:mb-24">
           <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient">
