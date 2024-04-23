@@ -175,6 +175,7 @@ const WaitList = () => {
       document.body.classList.add("safari");
     }
   }, []);
+
   useEffect(() => {
     console.log("Initial profile type:", formData.profileType);
     // Optionally set an initial state if not set
@@ -279,9 +280,8 @@ const WaitList = () => {
                 <button
                   className="text-white btn btn-primary"
                   onClick={handleSubmit}
-                  disabled={loading}
                 >
-                  {`${loading ? "Cargando..." : "Enviar"}`}
+                  Enviar
                 </button>
               </form>
             </div>
