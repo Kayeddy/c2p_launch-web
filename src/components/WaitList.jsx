@@ -198,7 +198,7 @@ const WaitList = () => {
       <div className="container relative w-full pb-32 pt-[12rem] -mt-[5.25rem] z-2">
         <Heading
           className="text-center md:max-w-md lg:max-w-2xl"
-          title="Conecta vidas alrededor del mundo y sálvalas!"
+          title="¡Conecta vidas alrededor del mundo y sálvalas!"
         />
 
         <div className="flex flex-col gap-24 xl:flex-row">
@@ -266,7 +266,7 @@ const WaitList = () => {
                   <p className="mt-1 text-xs text-red-500">{errors.name}</p>
                 )}
                 <CustomDropdown
-                  label="Qué te gustaria hacer en Connect2Pet?"
+                  label="¿Qué te gustaria hacer en Connect2Pet?"
                   options={options}
                   name="profileType"
                   onChange={handleChange}
@@ -288,7 +288,7 @@ const WaitList = () => {
           ) : (
             <div className="flex items-center justify-center w-full">
               <h1 className="max-w-3xl mx-auto mb-6 text-center body-1 text-n-2 lg:mb-8">
-                Tus datos se han guardado exitosamente. Gracias por querer ser
+                Tus datos se han guardado exitosamente. ¡Gracias por querer ser
                 parte de este gran movimiento creciente!
               </h1>
             </div>
